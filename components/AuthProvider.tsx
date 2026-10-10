@@ -3,7 +3,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
 type User = { name: string; email: string } | null;
-type Auth = { user: User; ready: boolean; signIn: (email: string, password: string) => string | null; signUp: (name: string, email: string, password: string) => string | null; signOut: () => void };
+type Auth = { user: User; ready: boolean; signIn: (email: string, password: string) => string | null; signInWithGoogle: () => void; signUp: (name: string, email: string, password: string) => string | null; signOut: () => void };
 const AuthContext = createContext<Auth | null>(null);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
@@ -23,6 +23,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if (!account) return "ইমেইল বা পাসওয়ার্ড সঠিক নয়।";
     save({ name: account.name, email: account.email }); return null;
   };
-  return <AuthContext.Provider value={{ user, ready, signIn, signUp, signOut: () => save(null) }}>{children}</AuthContext.Provider>;
+  const signInWithGoogle = () => save({ name: "Google ব্যবহারকারী", email: "google-user@bazardor.app" });
+  return <AuthContext.Provider value={{ user, ready, signIn, signInWithGoogle, signUp, signOut: () => save(null) }}>{children}</AuthContext.Provider>;
 }
 export function useAuth() { const context = useContext(AuthContext); if (!context) throw new Error("AuthProvider missing"); return context; }
