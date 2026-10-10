@@ -1,0 +1,1 @@
+export default function Footer() { return <footer><div className="container"><span><b>বাজার দর</b> — প্রয়োজনীয় পণ্যের দাম এক নজরে।</span><span>সকল দাম সম্ভাব্য; বাজার অবস্থার ওপর নির্ভর করে পরিবর্তিত হয়।</span></div></footer>; }
